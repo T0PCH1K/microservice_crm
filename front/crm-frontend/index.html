@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CRM MVP</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div id="login-screen">
+        <h2>Вход</h2>
+        <input type="text" id="login-user" placeholder="Логин">
+        <input type="password" id="login-pass" placeholder="Пароль">
+        <button onclick="login()">Войти</button>
+        <div id="login-error" class="error"></div>
+    </div>
+
+    <div id="main-screen" style="display:none">
+        <div class="header">
+            <span id="current-user"></span>
+            <button onclick="logout()">Выйти</button>
+        </div>
+        <div class="tabs">
+            <button id="tab-clients" class="tab active" onclick="switchTab('clients')">👥 Клиенты</button>
+            <button id="tab-logs" class="tab" onclick="switchTab('logs')" style="display:none">📋 Логи</button>
+        </div>
+
+        <div id="panel-clients" class="panel">
+            <div class="toolbar">
+                <input type="text" id="client-search" placeholder="ID, @telegram, +телефон, email, имя">
+                <button onclick="searchClient()">🔍</button>
+                <button onclick="loadClients()">Все</button>
+            </div>
+            <div id="clients-error" class="error"></div>
+            <table id="clients-table">
+                <thead>
+                    <tr><th>ID</th><th>Имя</th><th>Email</th><th>Телефон</th><th>Telegram</th><th>Баланс</th><th></th></tr>
+                </thead>
+                <tbody></tbody>
+            </table>
+            <button onclick="openAddModal()">➕ Добавить клиента</button>
+        </div>
+
+        <div id="panel-logs" class="panel" style="display:none">
+            <div class="toolbar">
+                <input type="text" id="log-filter" placeholder="Фильтр по пользователю">
+                <button onclick="loadLogs()">Применить</button>
+                <button onclick="loadLogs(true)">Все</button>
+            </div>
+            <div id="logs-error" class="error"></div>
+            <table id="logs-table">
+                <thead>
+                    <tr><th>ID</th><th>Пользователь</th><th>Действие</th><th>IP</th><th>Время</th></tr>
+                </thead>
+                <tbody></tbody>
+            </table>
+        </div>
+    </div>
+
+    <div id="client-modal" class="modal" style="display:none">
+        <div class="modal-content">
+            <span class="modal-close" onclick="closeModal()">&times;</span>
+            <h3 id="modal-title">Добавить клиента</h3>
+            <input type="hidden" id="client-id">
+            <label>Имя*</label>
+            <input type="text" id="client-name" placeholder="Имя*">
+            <label>Email</label>
+            <input type="text" id="client-email" placeholder="Email">
+            <label>Телефон</label>
+            <input type="text" id="client-phone" placeholder="Телефон">
+            <label>Telegram</label>
+            <input type="text" id="client-telegram" placeholder="Telegram">
+            <label>Баланс</label>
+            <input type="number" id="client-balance" placeholder="0.00" step="0.01">
+            <button onclick="saveClient()">Сохранить</button>
+        </div>
+    </div>
+
+    <script src="config.js"></script>
+    <script src="auth.js"></script>
+    <script src="clients.js"></script>
+    <script src="logs.js"></script>
+</body>
+</html>
